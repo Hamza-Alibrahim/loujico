@@ -1,0 +1,311 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { useTranslations } from "next-intl";
+
+const Services = () => {
+  const [activeCategory, setActiveCategory] = useState("all");
+  const t = useTranslations("Services");
+
+  const getCurrentLocale = () => {
+    if (typeof document === "undefined") return "ar";
+    const value = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("locale="))
+      ?.split("=")[1];
+    return value || "ar";
+  };
+
+  const currentLocale = getCurrentLocale();
+  const isRTL = currentLocale === "ar";
+
+  const servicesData = {
+    "tech-solutions": {
+      title: t("techSolutionsTitle"),
+      icon: "🔧",
+      services: [
+        t("techSolution1"),
+        t("techSolution2"),
+        t("techSolution3"),
+        t("techSolution4"),
+      ],
+    },
+    hardware: {
+      title: t("hardwareTitle"),
+      icon: "💻",
+      services: [
+        t("hardware1"),
+        t("hardware2"),
+        t("hardware3"),
+        t("hardware4"),
+      ],
+    },
+    software: {
+      title: t("softwareTitle"),
+      icon: "📱",
+      services: [
+        t("software1"),
+        t("software2"),
+        t("software3"),
+        t("software4"),
+      ],
+    },
+    "web-mobile": {
+      title: t("webMobileTitle"),
+      icon: "🌐",
+      services: [
+        t("webMobile1"),
+        t("webMobile2"),
+        t("webMobile3"),
+        t("webMobile4"),
+      ],
+    },
+    cybersecurity: {
+      title: t("cybersecurityTitle"),
+      icon: "🛡️",
+      services: [
+        t("cybersecurity1"),
+        t("cybersecurity2"),
+        t("cybersecurity3"),
+        t("cybersecurity4"),
+      ],
+    },
+    training: {
+      title: t("trainingTitle"),
+      icon: "🎓",
+      services: [
+        t("training1"),
+        t("training2"),
+        t("training3"),
+        t("training4"),
+      ],
+    },
+    support: {
+      title: t("supportTitle"),
+      icon: "⚡",
+      services: [t("support1"), t("support2"), t("support3"), t("support4")],
+    },
+  };
+
+  const servicesEntries = Object.entries(servicesData);
+  const totalServices = servicesEntries.length;
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const listItemVariants = {
+    hidden: { opacity: 0, x: isRTL ? 10 : -10 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  return (
+    <section
+      id="services"
+      className="py-20 relative overflow-hidden"
+      dir={isRTL ? "rtl" : "ltr"}
+    >
+      {/* Background Elements */}
+      <div className="absolute top-1/6 -left-20 w-80 h-80 bg-electric-violet/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/6 -right-20 w-96 h-96 bg-royal-purple/10 rounded-full blur-3xl"></div>
+
+      {/* Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(138,43,226,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(138,43,226,0.03)_1px,transparent_1px)] bg-size-[60px_60px] mask-[radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"></div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <span className="bg-linear-to-r from-electric-violet to-royal-purple bg-clip-text text-transparent">
+              {t("title")}
+            </span>
+          </h2>
+          <p className="text-lg text-soft-lavender/80 max-w-2xl mx-auto mb-8">
+            {t("description")}
+          </p>
+          <div className="w-24 h-1 bg-linear-to-r from-electric-violet to-royal-purple mx-auto rounded-full"></div>
+        </motion.div>
+
+        {/* Services Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+        >
+          {servicesEntries.map(([key, service], index) => {
+            const isLastItem = index === totalServices - 1;
+            const isOddTotal = totalServices % 2 !== 0;
+
+            return (
+              <motion.div
+                key={key}
+                variants={itemVariants}
+                className={`group cursor-pointer ${
+                  isLastItem && isOddTotal
+                    ? "md:col-span-2 lg:col-span-1 lg:col-start-2"
+                    : ""
+                }`}
+                whileHover={{ y: -5 }}
+                onClick={() =>
+                  setActiveCategory(activeCategory === key ? "all" : key)
+                }
+              >
+                <div
+                  className={`bg-white/5 backdrop-blur-sm border rounded-2xl p-6 h-full transition-all duration-300 ${
+                    activeCategory === key
+                      ? "border-electric-violet bg-electric-violet/10 shadow-2xl shadow-electric-violet/20"
+                      : "border-white/10 hover:border-electric-violet/30 hover:bg-white/10"
+                  } ${isLastItem && isOddTotal ? "max-w-md mx-auto" : ""}`}
+                >
+                  {/* Service Icon */}
+                  <div
+                    className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 text-2xl transition-all duration-300 ${
+                      activeCategory === key
+                        ? "bg-electric-violet/20 text-electric-violet"
+                        : "bg-white/5 text-soft-lavender group-hover:bg-electric-violet/20 group-hover:text-electric-violet"
+                    }`}
+                  >
+                    {service.icon}
+                  </div>
+
+                  {/* Service Title */}
+                  <h3 className="text-xl font-bold text-white mb-3">
+                    {service.title}
+                  </h3>
+
+                  {/* Service List */}
+                  <ul className="space-y-2">
+                    {service.services.map((item, itemIndex) => (
+                      <motion.li
+                        key={itemIndex}
+                        variants={listItemVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        transition={{ delay: itemIndex * 0.1 }}
+                        className="flex items-center gap-2 text-soft-lavender/70 text-sm"
+                      >
+                        <div
+                          className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                            activeCategory === key
+                              ? "bg-electric-violet"
+                              : "bg-soft-lavender/50 group-hover:bg-electric-violet"
+                          }`}
+                        ></div>
+                        {item}
+                      </motion.li>
+                    ))}
+                  </ul>
+
+                  {/* Hover Indicator */}
+                  <div
+                    className={`mt-4 pt-4 border-t transition-all duration-300 ${
+                      activeCategory === key
+                        ? "border-electric-violet/30"
+                        : "border-white/10 group-hover:border-electric-violet/30"
+                    }`}
+                  >
+                    <span
+                      className={`text-sm font-medium transition-all duration-300 ${
+                        activeCategory === key
+                          ? "text-electric-violet"
+                          : "text-soft-lavender/60 group-hover:text-electric-violet"
+                      }`}
+                    >
+                      {activeCategory === key
+                        ? t("selected")
+                        : t("viewDetails")}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-16"
+        >
+          <div className="bg-linear-to-r from-electric-violet/10 to-royal-purple/10 backdrop-blur-sm border border-electric-violet/30 rounded-2xl p-8 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-white mb-4">
+              {t("ctaTitle")}
+            </h3>
+            <p className="text-soft-lavender/80 mb-6 max-w-2xl mx-auto">
+              {t("ctaDescription")}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.a
+                href="#contact"
+                className="bg-linear-to-r from-electric-violet to-royal-purple hover:from-royal-purple hover:to-electric-violet text-white px-8 py-4 rounded-xl transition-all duration-300 font-medium shadow-lg hover:shadow-electric-violet/30 inline-flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>{t("orderService")}</span>
+                <svg
+                  className={`w-5 h-5 transform ${isRTL ? "rotate-180" : ""}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </motion.a>
+              <motion.a
+                href="#about"
+                className="border border-electric-violet text-electric-violet hover:bg-electric-violet hover:text-white px-8 py-4 rounded-xl transition-all duration-300 font-medium inline-flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>{t("learnMore")}</span>
+                <svg
+                  className={`w-5 h-5 transform ${isRTL ? "rotate-180" : ""}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </motion.a>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Services;

@@ -1,44 +1,65 @@
-// components/HeroSection.tsx
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const Hero = () => {
-  return (
-    <section id="home" className="min-h-screen relative overflow-hidden">
-      {/* Background that extends BEHIND the navbar */}
-      <div className="absolute inset-0 bg-linear-to-br from-deep-space via-deep-space to-royal-purple"></div>
+  const t = useTranslations("Hero");
 
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-electric-violet/20 via-deep-space to-deep-space"></div>
+  const getCurrentLocale = () => {
+    if (typeof document === "undefined") return "ar";
+    const value = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("locale="))
+      ?.split("=")[1];
+    return value || "ar";
+  };
+
+  const currentLocale = getCurrentLocale();
+  const isRTL = currentLocale === "ar";
+
+  return (
+    <section
+      id="home"
+      className="min-h-screen relative overflow-hidden"
+      dir={isRTL ? "rtl" : "ltr"}
+    >
+      {/* Background that extends BEHIND the navbar */}
+      <div className="absolute inset-0 "></div>
 
       {/* Animated Background Orbs */}
-      <div className="absolute top-1/4 -left-10 w-72 h-72 bg-electric-violet rounded-full blur-3xl opacity-30 animate-pulse"></div>
+      <div className="absolute top-1/4 -left-10 w-72 h-72 bg-electric-violet/70 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-1/4 -right-10 w-96 h-96 bg-royal-purple rounded-full blur-3xl opacity-20 animate-pulse delay-1000"></div>
 
       {/* Content - This starts BELOW the navbar */}
-      <div className="relative z-10 container mx-auto px-4 py-20 flex items-center min-h-screen">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Your existing hero content remains the same */}
+      <div className="relative z-10 container mx-auto px-4 py-20 flex justify-center items-center min-h-screen">
+        <div
+          className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
+            isRTL ? "lg:grid-flow-row-dense" : ""
+          }`}
+        >
+          {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center lg:text-right"
+            className={`text-center lg:text-${isRTL ? "right" : "left"}`}
           >
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6"
+              className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 ${
+                isRTL ? "text-right" : "text-left"
+              }`}
             >
-              <span className="text-white">حلول تقنية </span>
+              <span className="text-white">{t("title1")} </span>
               <span className="bg-linear-to-r from-electric-violet to-royal-purple bg-clip-text text-transparent">
-                مبتكرة
+                {t("titleHighlight")}
               </span>
-              <span className="text-white"> للمستقبل</span>
+              <span className="text-white"> {t("title2")}</span>
             </motion.h1>
 
             <motion.p
@@ -46,11 +67,11 @@ const Hero = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg md:text-xl text-soft-lavender/80 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0"
+              className={`text-lg md:text-xl text-soft-lavender/80 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0 ${
+                isRTL ? "text-right" : "text-left"
+              }`}
             >
-              مؤسسة يوسف اللوجي التجارية - نقدم حلول التحول الرقمي، تطوير
-              البرمجيات الذكية، وتصميم التطبيقات المخصصة لمساعدة الشركات على
-              النمو في العصر الرقمي.
+              {t("description")}
             </motion.p>
 
             <motion.div
@@ -58,15 +79,25 @@ const Hero = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className={`flex flex-col sm:flex-row gap-4 ${
+                isRTL
+                  ? "justify-center lg:justify-end"
+                  : "justify-center lg:justify-start"
+              }`}
             >
-              <button className="bg-electric-violet hover:bg-royal-purple text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-electric-violet/25">
-                ابدأ مشروعك الآن
-              </button>
+              <a
+                href="#contact"
+                className="bg-electric-violet hover:bg-royal-purple text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-electric-violet/25 text-center"
+              >
+                {t("ctaPrimary")}
+              </a>
 
-              <button className="border border-electric-violet text-electric-violet hover:bg-electric-violet hover:text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300">
-                عرض خدماتنا
-              </button>
+              <a
+                href="#services"
+                className="border border-electric-violet text-electric-violet hover:bg-electric-violet hover:text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 text-center"
+              >
+                {t("ctaSecondary")}
+              </a>
             </motion.div>
 
             {/* Stats */}
@@ -81,19 +112,25 @@ const Hero = () => {
                 <div className="text-2xl md:text-3xl font-bold text-white">
                   +50
                 </div>
-                <div className="text-soft-lavender/60 text-sm">مشروع مكتمل</div>
+                <div className="text-soft-lavender/60 text-sm">
+                  {t("stats.projects")}
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-2xl md:text-3xl font-bold text-white">
                   +30
                 </div>
-                <div className="text-soft-lavender/60 text-sm">عميل راضي</div>
+                <div className="text-soft-lavender/60 text-sm">
+                  {t("stats.clients")}
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-2xl md:text-3xl font-bold text-white">
                   24/7
                 </div>
-                <div className="text-soft-lavender/60 text-sm">دعم فني</div>
+                <div className="text-soft-lavender/60 text-sm">
+                  {t("stats.support")}
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -104,7 +141,7 @@ const Hero = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="relative"
+            className="relative max-sm:hidden"
           >
             <div className="relative bg-linear-to-br from-electric-violet/20 to-royal-purple/20 rounded-2xl p-8 backdrop-blur-sm border border-electric-violet/30">
               {/* Abstract Tech Visualization */}
@@ -164,24 +201,6 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-      >
-        <div className="w-6 h-10 border-2 border-soft-lavender/40 rounded-full flex justify-center">
-          <motion.div
-            whileInView={{ y: [0, 12, 0] }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1 h-3 bg-soft-lavender/60 rounded-full mt-2"
-          ></motion.div>
-        </div>
-      </motion.div>
     </section>
   );
 };
