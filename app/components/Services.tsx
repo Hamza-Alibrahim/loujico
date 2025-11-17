@@ -8,18 +8,6 @@ const Services = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const t = useTranslations("Services");
 
-  const getCurrentLocale = () => {
-    if (typeof document === "undefined") return "ar";
-    const value = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("locale="))
-      ?.split("=")[1];
-    return value || "ar";
-  };
-
-  const currentLocale = getCurrentLocale();
-  const isRTL = currentLocale === "ar";
-
   const servicesData = {
     "tech-solutions": {
       title: t("techSolutionsTitle"),
@@ -106,16 +94,12 @@ const Services = () => {
   };
 
   const listItemVariants = {
-    hidden: { opacity: 0, x: isRTL ? 10 : -10 },
+    hidden: { opacity: 0, x: -10 },
     visible: { opacity: 1, x: 0 },
   };
 
   return (
-    <section
-      id="services"
-      className="py-20 relative overflow-hidden"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
+    <section id="services" className="py-16 sm:py-20 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute top-1/6 -left-20 w-80 h-80 bg-electric-violet/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-1/6 -right-20 w-96 h-96 bg-royal-purple/10 rounded-full blur-3xl"></div>
@@ -130,17 +114,17 @@ const Services = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
             <span className="bg-linear-to-r from-electric-violet to-royal-purple bg-clip-text text-transparent">
               {t("title")}
             </span>
           </h2>
-          <p className="text-lg text-soft-lavender/80 max-w-2xl mx-auto mb-8">
+          <p className="text-base sm:text-lg text-soft-lavender/80 max-w-2xl mx-auto mb-6 sm:mb-8">
             {t("description")}
           </p>
-          <div className="w-24 h-1 bg-linear-to-r from-electric-violet to-royal-purple mx-auto rounded-full"></div>
+          <div className="w-20 sm:w-24 h-1 bg-linear-to-r from-electric-violet to-royal-purple mx-auto rounded-full"></div>
         </motion.div>
 
         {/* Services Grid */}
@@ -149,7 +133,7 @@ const Services = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto"
         >
           {servicesEntries.map(([key, service], index) => {
             const isLastItem = index === totalServices - 1;
@@ -170,7 +154,7 @@ const Services = () => {
                 }
               >
                 <div
-                  className={`bg-white/5 backdrop-blur-sm border rounded-2xl p-6 h-full transition-all duration-300 ${
+                  className={`bg-white/5 backdrop-blur-sm border rounded-xl sm:rounded-2xl p-4 sm:p-6 h-full transition-all duration-300 ${
                     activeCategory === key
                       ? "border-electric-violet bg-electric-violet/10 shadow-2xl shadow-electric-violet/20"
                       : "border-white/10 hover:border-electric-violet/30 hover:bg-white/10"
@@ -178,7 +162,7 @@ const Services = () => {
                 >
                   {/* Service Icon */}
                   <div
-                    className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 text-2xl transition-all duration-300 ${
+                    className={`w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-4 text-xl sm:text-2xl transition-all duration-300 ${
                       activeCategory === key
                         ? "bg-electric-violet/20 text-electric-violet"
                         : "bg-white/5 text-soft-lavender group-hover:bg-electric-violet/20 group-hover:text-electric-violet"
@@ -188,12 +172,12 @@ const Services = () => {
                   </div>
 
                   {/* Service Title */}
-                  <h3 className="text-xl font-bold text-white mb-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">
                     {service.title}
                   </h3>
 
                   {/* Service List */}
-                  <ul className="space-y-2">
+                  <ul className="space-y-1 sm:space-y-2">
                     {service.services.map((item, itemIndex) => (
                       <motion.li
                         key={itemIndex}
@@ -202,7 +186,7 @@ const Services = () => {
                         whileInView="visible"
                         viewport={{ once: true }}
                         transition={{ delay: itemIndex * 0.1 }}
-                        className="flex items-center gap-2 text-soft-lavender/70 text-sm"
+                        className="flex items-center gap-2 text-soft-lavender/70 text-xs sm:text-sm"
                       >
                         <div
                           className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
@@ -218,14 +202,14 @@ const Services = () => {
 
                   {/* Hover Indicator */}
                   <div
-                    className={`mt-4 pt-4 border-t transition-all duration-300 ${
+                    className={`mt-3 sm:mt-4 pt-3 sm:pt-4 border-t transition-all duration-300 ${
                       activeCategory === key
                         ? "border-electric-violet/30"
                         : "border-white/10 group-hover:border-electric-violet/30"
                     }`}
                   >
                     <span
-                      className={`text-sm font-medium transition-all duration-300 ${
+                      className={`text-xs sm:text-sm font-medium transition-all duration-300 ${
                         activeCategory === key
                           ? "text-electric-violet"
                           : "text-soft-lavender/60 group-hover:text-electric-violet"
@@ -248,25 +232,25 @@ const Services = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16"
+          className="text-center mt-12 sm:mt-16"
         >
-          <div className="bg-linear-to-r from-electric-violet/10 to-royal-purple/10 backdrop-blur-sm border border-electric-violet/30 rounded-2xl p-8 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">
+          <div className="bg-linear-to-r from-electric-violet/10 to-royal-purple/10 backdrop-blur-sm border border-electric-violet/30 rounded-xl sm:rounded-2xl p-6 sm:p-8 max-w-4xl mx-auto">
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
               {t("ctaTitle")}
             </h3>
-            <p className="text-soft-lavender/80 mb-6 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-soft-lavender/80 mb-4 sm:mb-6 max-w-2xl mx-auto">
               {t("ctaDescription")}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <motion.a
                 href="#contact"
-                className="bg-linear-to-r from-electric-violet to-royal-purple hover:from-royal-purple hover:to-electric-violet text-white px-8 py-4 rounded-xl transition-all duration-300 font-medium shadow-lg hover:shadow-electric-violet/30 inline-flex items-center gap-2"
+                className="bg-linear-to-r from-electric-violet to-royal-purple hover:from-royal-purple hover:to-electric-violet text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl transition-all duration-300 font-medium shadow-lg hover:shadow-electric-violet/30 inline-flex items-center justify-center gap-2 text-sm sm:text-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span>{t("orderService")}</span>
                 <svg
-                  className={`w-5 h-5 transform ${isRTL ? "rotate-180" : ""}`}
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -275,19 +259,19 @@ const Services = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
                   />
                 </svg>
               </motion.a>
               <motion.a
                 href="#about"
-                className="border border-electric-violet text-electric-violet hover:bg-electric-violet hover:text-white px-8 py-4 rounded-xl transition-all duration-300 font-medium inline-flex items-center gap-2"
+                className="border border-electric-violet text-electric-violet hover:bg-electric-violet hover:text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl transition-all duration-300 font-medium inline-flex items-center justify-center gap-2 text-sm sm:text-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span>{t("learnMore")}</span>
                 <svg
-                  className={`w-5 h-5 transform ${isRTL ? "rotate-180" : ""}`}
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

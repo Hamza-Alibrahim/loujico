@@ -20,10 +20,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const cookieStore = await cookies();
-  const locale = cookieStore.get("locale")?.value || "ar";
+  const locale = cookieStore.get("locale")?.value || "en";
   const isRTL = locale === "ar";
   return (
     <html lang="en" dir={isRTL ? "rtl" : "ltr"}>
+      <head>
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+      </head>
       <body className={`${cairo.variable} antialiased`}>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>

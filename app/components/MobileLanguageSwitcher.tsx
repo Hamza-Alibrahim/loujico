@@ -11,15 +11,16 @@ const MobileLanguageSwitcher = () => {
   const [isPending, startTransition] = useTransition();
 
   const getCurrentLocale = () => {
-    if (typeof document === "undefined") return "ar";
+    if (typeof document === "undefined") return "en";
     const value = document.cookie
       .split("; ")
       .find((row) => row.startsWith("locale="))
       ?.split("=")[1];
-    return value || "ar";
+    return value || "en";
   };
 
   const currentLocale = getCurrentLocale();
+  const isRtl = currentLocale === "ar";
 
   const switchLanguage = (locale: string) => {
     // eslint-disable-next-line react-hooks/immutability
@@ -32,8 +33,8 @@ const MobileLanguageSwitcher = () => {
   };
 
   const languages = [
-    { code: "ar", name: "العربية", flag: "🇸🇦" },
     { code: "en", name: "English", flag: "🇺🇸" },
+    { code: "ar", name: "العربية", flag: "🇸🇦" },
   ];
 
   const currentLanguage =
@@ -72,7 +73,9 @@ const MobileLanguageSwitcher = () => {
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            className="absolute top-full right-0 mt-2 w-32 bg-deep-space/95 backdrop-blur-xl border border-electric-violet/30 rounded-xl shadow-2xl shadow-electric-violet/20 overflow-hidden z-50"
+            className={`absolute top-full ${
+              isRtl ? "left-0" : "right-0"
+            } mt-2 w-32 bg-deep-space/95 backdrop-blur-xl border border-electric-violet/30 rounded-xl shadow-2xl shadow-electric-violet/20 overflow-hidden z-50`}
           >
             <div className="p-1">
               {languages.map((language) => (

@@ -6,54 +6,32 @@ import { useTranslations } from "next-intl";
 const Hero = () => {
   const t = useTranslations("Hero");
 
-  const getCurrentLocale = () => {
-    if (typeof document === "undefined") return "ar";
-    const value = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("locale="))
-      ?.split("=")[1];
-    return value || "ar";
-  };
-
-  const currentLocale = getCurrentLocale();
-  const isRTL = currentLocale === "ar";
-
   return (
-    <section
-      id="home"
-      className="min-h-screen relative overflow-hidden"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
+    <section id="home" className="min-h-screen relative overflow-hidden">
       {/* Background that extends BEHIND the navbar */}
       <div className="absolute inset-0 "></div>
 
       {/* Animated Background Orbs */}
-      <div className="absolute top-1/4 -left-10 w-72 h-72 bg-electric-violet/70 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-      <div className="absolute bottom-1/4 -right-10 w-96 h-96 bg-royal-purple rounded-full blur-3xl opacity-20 animate-pulse delay-1000"></div>
+      <div className="absolute top-1/4 -left-10 w-60 h-60 sm:w-72 sm:h-72 bg-electric-violet/70 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+      <div className="absolute bottom-1/4 -right-10 w-60 h-60 sm:w-96 sm:h-96 bg-royal-purple rounded-full blur-3xl opacity-20 animate-pulse delay-1000"></div>
 
       {/* Content - This starts BELOW the navbar */}
       <div className="relative z-10 container mx-auto px-4 py-20 flex justify-center items-center min-h-screen">
-        <div
-          className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-            isRTL ? "lg:grid-flow-row-dense" : ""
-          }`}
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center rtl:lg:grid-flow-row-dense">
           {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className={`text-center lg:text-${isRTL ? "right" : "left"}`}
+            className="text-center lg:text-left rtl:lg:text-right"
           >
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 ${
-                isRTL ? "text-right" : "text-left"
-              }`}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-4 sm:mb-6 text-left rtl:text-right"
             >
               <span className="text-white">{t("title1")} </span>
               <span className="bg-linear-to-r from-electric-violet to-royal-purple bg-clip-text text-transparent">
@@ -67,9 +45,7 @@ const Hero = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className={`text-lg md:text-xl text-soft-lavender/80 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0 ${
-                isRTL ? "text-right" : "text-left"
-              }`}
+              className="text-base sm:text-lg md:text-xl text-soft-lavender/80 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0 rtl:text-right"
             >
               {t("description")}
             </motion.p>
@@ -79,22 +55,18 @@ const Hero = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className={`flex flex-col sm:flex-row gap-4 ${
-                isRTL
-                  ? "justify-center lg:justify-end"
-                  : "justify-center lg:justify-start"
-              }`}
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
             >
               <a
                 href="#contact"
-                className="bg-electric-violet hover:bg-royal-purple text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-electric-violet/25 text-center"
+                className="text-sm sm:text-base bg-electric-violet hover:bg-royal-purple text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-electric-violet/25 text-center"
               >
                 {t("ctaPrimary")}
               </a>
 
               <a
                 href="#services"
-                className="border border-electric-violet text-electric-violet hover:bg-electric-violet hover:text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 text-center"
+                className="text-sm sm:text-base border border-electric-violet text-electric-violet hover:bg-electric-violet hover:text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-lg transition-all duration-300 text-center"
               >
                 {t("ctaSecondary")}
               </a>
@@ -106,29 +78,29 @@ const Hero = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-soft-lavender/20"
+              className="grid grid-cols-3 gap-4 sm:gap-8 mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-soft-lavender/20"
             >
               <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-white">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
                   +50
                 </div>
-                <div className="text-soft-lavender/60 text-sm">
+                <div className="text-soft-lavender/60 text-xs sm:text-sm">
                   {t("stats.projects")}
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-white">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
                   +30
                 </div>
-                <div className="text-soft-lavender/60 text-sm">
+                <div className="text-soft-lavender/60 text-xs sm:text-sm">
                   {t("stats.clients")}
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-white">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
                   24/7
                 </div>
-                <div className="text-soft-lavender/60 text-sm">
+                <div className="text-soft-lavender/60 text-xs sm:text-sm">
                   {t("stats.support")}
                 </div>
               </div>
@@ -143,60 +115,22 @@ const Hero = () => {
             transition={{ duration: 1, delay: 0.3 }}
             className="relative max-sm:hidden"
           >
-            <div className="relative bg-linear-to-br from-electric-violet/20 to-royal-purple/20 rounded-2xl p-8 backdrop-blur-sm border border-electric-violet/30">
+            <div className="relative bg-linear-to-br from-electric-violet/20 to-royal-purple/20 rounded-2xl p-6 sm:p-8 backdrop-blur-sm border border-electric-violet/30">
               {/* Abstract Tech Visualization */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="space-y-4">
-                  <div className="h-4 bg-electric-violet rounded-full"></div>
-                  <div className="h-4 bg-electric-violet/60 rounded-full"></div>
-                  <div className="h-4 bg-electric-violet/40 rounded-full"></div>
-                </div>
-                <div className="space-y-4">
-                  <div className="h-4 bg-royal-purple/40 rounded-full"></div>
-                  <div className="h-4 bg-royal-purple rounded-full"></div>
-                  <div className="h-4 bg-royal-purple/60 rounded-full"></div>
-                </div>
-                <div className="space-y-4">
-                  <div className="h-4 bg-electric-violet/40 rounded-full"></div>
-                  <div className="h-4 bg-royal-purple/40 rounded-full"></div>
-                  <div className="h-4 bg-electric-violet rounded-full"></div>
-                </div>
-                <div className="space-y-4">
-                  <div className="h-4 bg-electric-violet rounded-full"></div>
-                  <div className="h-4 bg-electric-violet/60 rounded-full"></div>
-                  <div className="h-4 bg-electric-violet/40 rounded-full"></div>
-                </div>
-                <div className="space-y-4">
-                  <div className="h-4 bg-royal-purple/40 rounded-full"></div>
-                  <div className="h-4 bg-royal-purple rounded-full"></div>
-                  <div className="h-4 bg-royal-purple/60 rounded-full"></div>
-                </div>
-                <div className="space-y-4">
-                  <div className="h-4 bg-electric-violet/40 rounded-full"></div>
-                  <div className="h-4 bg-royal-purple/40 rounded-full"></div>
-                  <div className="h-4 bg-electric-violet rounded-full"></div>
-                </div>
-                <div className="space-y-4">
-                  <div className="h-4 bg-electric-violet rounded-full"></div>
-                  <div className="h-4 bg-electric-violet/60 rounded-full"></div>
-                  <div className="h-4 bg-electric-violet/40 rounded-full"></div>
-                </div>
-                <div className="space-y-4">
-                  <div className="h-4 bg-royal-purple/40 rounded-full"></div>
-                  <div className="h-4 bg-royal-purple rounded-full"></div>
-                  <div className="h-4 bg-royal-purple/60 rounded-full"></div>
-                </div>
-                <div className="space-y-4">
-                  <div className="h-4 bg-electric-violet/40 rounded-full"></div>
-                  <div className="h-4 bg-royal-purple/40 rounded-full"></div>
-                  <div className="h-4 bg-electric-violet rounded-full"></div>
-                </div>
+              <div className="grid grid-cols-3 gap-3 sm:gap-4">
+                {[...Array(9)].map((_, index) => (
+                  <div key={index} className="space-y-2 sm:space-y-4">
+                    <div className="h-3 sm:h-4 bg-electric-violet rounded-full"></div>
+                    <div className="h-3 sm:h-4 bg-electric-violet/60 rounded-full"></div>
+                    <div className="h-3 sm:h-4 bg-electric-violet/40 rounded-full"></div>
+                  </div>
+                ))}
               </div>
 
               {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-electric-violet rounded-full shadow-lg shadow-electric-violet/50"></div>
-              <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-royal-purple rounded-full shadow-lg shadow-royal-purple/50"></div>
-              <div className="absolute top-1/2 -right-6 w-6 h-6 bg-soft-lavender rounded-lg transform rotate-45 shadow-lg"></div>
+              <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-6 h-6 sm:w-8 sm:h-8 bg-electric-violet rounded-full shadow-lg shadow-electric-violet/50"></div>
+              <div className="absolute -bottom-3 -left-3 sm:-bottom-4 sm:-left-4 w-8 h-8 sm:w-12 sm:h-12 bg-royal-purple rounded-full shadow-lg shadow-royal-purple/50"></div>
+              <div className="absolute top-1/2 -right-4 sm:-right-6 w-4 h-4 sm:w-6 sm:h-6 bg-soft-lavender rounded-lg transform rotate-45 shadow-lg"></div>
             </div>
           </motion.div>
         </div>

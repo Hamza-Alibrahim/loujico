@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -44,9 +45,16 @@ const Navbar = () => {
             >
               <a
                 href="#home"
-                className="text-xl whitespace-nowrap font-bold text-white transition-all duration-300"
+                className="text-lg sm:text-xl font-bold text-white transition-all duration-300 whitespace-nowrap flex items-center"
               >
-                {t("logo")}
+                <div className="relative overflow-hidden group w-10 h-10">
+                  <img
+                    src="./logo.svg"
+                    alt="Logo"
+                    className="w-full h-full object-contain relative z-10 transition-all duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <span className="max-[400px]:hidden">{t("logo")}</span>
               </a>
             </motion.div>
 
@@ -61,7 +69,7 @@ const Navbar = () => {
                 >
                   <a
                     href={item.href}
-                    className="text-white/90 whitespace-nowrap transition-colors duration-300 font-medium flex items-baseline px-4 py-2 rounded-lg hover:scale-105 hover:text-white hover:bg-white/5 border border-transparent hover:border-electric-violet"
+                    className="text-sm lg:text-base text-white/90 whitespace-nowrap transition-colors duration-300 font-medium flex items-baseline px-3 lg:px-4 py-2 rounded-lg hover:scale-105 hover:text-white hover:bg-white/5 border border-transparent hover:border-electric-violet"
                   >
                     {item.name}
                   </a>
@@ -80,7 +88,7 @@ const Navbar = () => {
               >
                 <motion.a
                   href="#contact"
-                  className="whitespace-nowrap bg-linear-to-r from-electric-violet to-royal-purple text-white px-5 py-2 rounded-lg transition-all duration-300 font-medium shadow-lg relative overflow-hidden"
+                  className="text-sm lg:text-base whitespace-nowrap bg-linear-to-r from-electric-violet to-royal-purple text-white px-4 lg:px-5 py-2 rounded-lg transition-all duration-300 font-medium shadow-lg relative overflow-hidden"
                   whileHover={{
                     boxShadow: "0 10px 30px rgba(138, 43, 226, 0.4)",
                   }}
@@ -91,7 +99,7 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Navigation */}
-            <div className="flex items-center gap-3 md:hidden">
+            <div className="flex items-center gap-2 sm:gap-3 md:hidden">
               <MobileLanguageSwitcher />
 
               {/* Mobile Menu Button */}
@@ -103,12 +111,12 @@ const Navbar = () => {
                 className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors duration-200 border border-white/10"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                <div className="w-6 h-6 flex flex-col justify-center space-y-1.5 relative">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 flex flex-col justify-center space-y-1 relative">
                   <motion.span
                     className="block h-0.5 bg-white rounded-full"
                     animate={{
                       rotate: isMobileMenuOpen ? 45 : 0,
-                      y: isMobileMenuOpen ? 6 : 0,
+                      y: isMobileMenuOpen ? 5 : 0,
                     }}
                     transition={{ type: "spring", stiffness: 300 }}
                   />
@@ -123,7 +131,7 @@ const Navbar = () => {
                     className="block h-0.5 bg-white rounded-full"
                     animate={{
                       rotate: isMobileMenuOpen ? -45 : 0,
-                      y: isMobileMenuOpen ? -6 : 0,
+                      y: isMobileMenuOpen ? -5 : 0,
                     }}
                     transition={{ type: "spring", stiffness: 300 }}
                   />
@@ -172,7 +180,7 @@ const Navbar = () => {
                             }
                           }, 300);
                         }}
-                        className="block py-3 text-white/90 hover:text-white transition-colors duration-300 font-medium border-b border-white/10 hover:pr-4"
+                        className="block py-3 text-base text-white/90 hover:text-white transition-colors duration-300 font-medium border-b border-white/10 hover:pr-4"
                         whileHover={{ x: -5 }}
                       >
                         {item.name}
@@ -192,7 +200,7 @@ const Navbar = () => {
                         }
                       }, 300);
                     }}
-                    className="block bg-linear-to-r from-electric-violet to-royal-purple hover:from-royal-purple hover:to-electric-violet text-white text-center py-3 rounded-lg transition-all duration-300 font-medium mt-4 shadow-lg hover:shadow-electric-violet/30"
+                    className="block text-base bg-linear-to-r from-electric-violet to-royal-purple hover:from-royal-purple hover:to-electric-violet text-white text-center py-3 rounded-lg transition-all duration-300 font-medium mt-4 shadow-lg hover:shadow-electric-violet/30"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >

@@ -6,24 +6,8 @@ import { useTranslations } from "next-intl";
 const About = () => {
   const t = useTranslations("About");
 
-  const getCurrentLocale = () => {
-    if (typeof document === "undefined") return "ar";
-    const value = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("locale="))
-      ?.split("=")[1];
-    return value || "ar";
-  };
-
-  const currentLocale = getCurrentLocale();
-  const isRTL = currentLocale === "ar";
-
   return (
-    <section
-      id="about"
-      className="py-20 relative overflow-hidden"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
+    <section id="about" className="py-16 sm:py-20 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute top-1/3 left-0 w-72 h-72 bg-electric-violet/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-royal-purple/10 rounded-full blur-3xl"></div>
@@ -34,37 +18,37 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
             {t("title")}{" "}
             <span className="bg-linear-to-r from-electric-violet to-royal-purple bg-clip-text text-transparent">
               {t("titleHighlight")}
             </span>
           </h2>
-          <div className="w-24 h-1 bg-linear-to-r from-electric-violet to-royal-purple mx-auto rounded-full"></div>
+          <div className="w-20 sm:w-24 h-1 bg-linear-to-r from-electric-violet to-royal-purple mx-auto rounded-full"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12 items-center max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12 items-center max-w-6xl mx-auto">
           {/* Text Content */}
           <motion.div
-            initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-electric-violet/30 transition-all duration-300"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-6 sm:p-8 hover:border-electric-violet/30 transition-all duration-300"
             >
-              <h3 className="text-2xl font-bold text-white mb-4">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
                 {t("vision")}
               </h3>
-              <p className="text-lg text-soft-lavender/80 leading-relaxed text-justify">
+              <p className="text-base sm:text-lg text-soft-lavender/80 leading-relaxed">
                 {t("visionText")}
               </p>
             </motion.div>
@@ -74,12 +58,12 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-electric-violet/30 transition-all duration-300"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-6 sm:p-8 hover:border-electric-violet/30 transition-all duration-300"
             >
-              <h3 className="text-2xl font-bold text-white mb-4">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
                 {t("mission")}
               </h3>
-              <p className="text-lg text-soft-lavender/80 leading-relaxed text-justify">
+              <p className="text-base sm:text-lg text-soft-lavender/80 leading-relaxed">
                 {t("missionText")}
               </p>
             </motion.div>
@@ -87,11 +71,11 @@ const About = () => {
 
           {/* Visual Elements & Stats */}
           <motion.div
-            initial={{ opacity: 0, x: isRTL ? -50 : 50 }}
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="space-y-8"
+            className="space-y-6 sm:space-y-8"
           >
             {/* Company Visual Card */}
             <motion.div
@@ -99,11 +83,11 @@ const About = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="bg-linear-to-br from-electric-violet/20 to-royal-purple/20 backdrop-blur-sm border border-electric-violet/30 rounded-2xl p-8 text-center"
+              className="bg-linear-to-br from-electric-violet/20 to-royal-purple/20 backdrop-blur-sm border border-electric-violet/30 rounded-xl sm:rounded-2xl p-6 sm:p-8 text-center"
             >
-              <div className="w-20 h-20 bg-electric-violet/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-electric-violet/20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <svg
-                  className="w-10 h-10 text-electric-violet"
+                  className="w-8 h-8 sm:w-10 sm:h-10 text-electric-violet"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -116,10 +100,12 @@ const About = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
                 {t("location")}
               </h3>
-              <p className="text-soft-lavender/70">{t("headquarters")}</p>
+              <p className="text-sm sm:text-base text-soft-lavender/70">
+                {t("headquarters")}
+              </p>
             </motion.div>
 
             {/* Stats Grid */}
@@ -128,44 +114,45 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="grid grid-cols-2 gap-6"
+              className="grid grid-cols-2 gap-4 sm:gap-6"
             >
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:border-electric-violet/30 transition-all duration-300 group">
-                <div className="text-3xl font-bold text-electric-violet mb-2 group-hover:scale-110 transition-transform duration-300">
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg sm:rounded-xl p-4 sm:p-6 text-center hover:border-electric-violet/30 transition-all duration-300 group">
+                <div className="text-2xl sm:text-3xl font-bold text-electric-violet mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-300">
                   +50
                 </div>
-                <div className="text-soft-lavender/70 text-sm">
+                <div className="text-soft-lavender/70 text-xs sm:text-sm">
                   {t("techProjects")}
                 </div>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:border-electric-violet/30 transition-all duration-300 group">
-                <div className="text-3xl font-bold text-royal-purple mb-2 group-hover:scale-110 transition-transform duration-300">
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg sm:rounded-xl p-4 sm:p-6 text-center hover:border-electric-violet/30 transition-all duration-300 group">
+                <div className="text-2xl sm:text-3xl font-bold text-royal-purple mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-300">
                   +30
                 </div>
-                <div className="text-soft-lavender/70 text-sm">
+                <div className="text-soft-lavender/70 text-xs sm:text-sm">
                   {t("satisfiedClients")}
                 </div>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:border-electric-violet/30 transition-all duration-300 group">
-                <div className="text-3xl font-bold text-electric-violet mb-2 group-hover:scale-110 transition-transform duration-300">
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg sm:rounded-xl p-4 sm:p-6 text-center hover:border-electric-violet/30 transition-all duration-300 group">
+                <div className="text-2xl sm:text-3xl font-bold text-electric-violet mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-300">
                   24/7
                 </div>
-                <div className="text-soft-lavender/70 text-sm">
+                <div className="text-soft-lavender/70 text-xs sm:text-sm">
                   {t("technicalSupport")}
                 </div>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:border-electric-violet/30 transition-all duration-300 group">
-                <div className="text-3xl font-bold text-royal-purple mb-2 group-hover:scale-110 transition-transform duration-300">
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg sm:rounded-xl p-4 sm:p-6 text-center hover:border-electric-violet/30 transition-all duration-300 group">
+                <div className="text-2xl sm:text-3xl font-bold text-royal-purple mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-300">
                   100%
                 </div>
-                <div className="text-soft-lavender/70 text-sm">
+                <div className="text-soft-lavender/70 text-xs sm:text-sm">
                   {t("qualityInnovation")}
                 </div>
               </div>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -175,13 +162,13 @@ const About = () => {
             >
               <motion.a
                 href="#services"
-                className="inline-flex items-center gap-2 bg-linear-to-r from-electric-violet to-royal-purple hover:from-royal-purple hover:to-electric-violet text-white px-8 py-4 rounded-xl transition-all duration-300 font-medium shadow-lg hover:shadow-electric-violet/30 hover:scale-105"
+                className="inline-flex items-center gap-2 bg-linear-to-r from-electric-violet to-royal-purple hover:from-royal-purple hover:to-electric-violet text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl transition-all duration-300 font-medium shadow-lg hover:shadow-electric-violet/30 hover:scale-105 text-sm sm:text-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span>{t("cta")}</span>
                 <svg
-                  className={`w-5 h-5 transform ${isRTL ? "rotate-180" : ""}`}
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

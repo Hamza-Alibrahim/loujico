@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { motion } from "framer-motion";
@@ -6,18 +7,6 @@ import { useTranslations } from "next-intl";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const t = useTranslations("Footer");
-
-  const getCurrentLocale = () => {
-    if (typeof document === "undefined") return "ar";
-    const value = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("locale="))
-      ?.split("=")[1];
-    return value || "ar";
-  };
-
-  const currentLocale = getCurrentLocale();
-  const isRTL = currentLocale === "ar";
 
   const quickLinks = [
     { name: t("home"), href: "#home" },
@@ -37,47 +26,41 @@ const Footer = () => {
   ];
 
   return (
-    <footer
-      className="relative overflow-hidden border-t border-white/10"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
+    <footer className="relative overflow-hidden border-t border-white/10">
       {/* Background Elements */}
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-electric-violet/5 rounded-full blur-3xl"></div>
       <div className="absolute top-0 right-0 w-80 h-80 bg-royal-purple/5 rounded-full blur-3xl"></div>
 
       <div className="relative z-10">
         {/* Main Footer Content */}
-        <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Company Info */}
+        <div className="container mx-auto px-4 py-8 sm:py-12">
+          <div className="grid grid-cols-1 sm:grid-cols-6 lg:grid-cols-12 gap-6 sm:gap-8">
+            {/* Company Info - Full width on small, full on medium, largest on large */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:col-span-1"
+              className="sm:col-span-6 lg:col-span-5 xl:col-span-4"
             >
-              <h3
-                className={`text-2xl font-bold text-white mb-4 relative inline-block ${
-                  isRTL ? "text-right" : "text-left"
-                }`}
-              >
-                {t("companyName")}
-              </h3>
-              <p
-                className={`text-soft-lavender/80 text-sm leading-relaxed mb-6 ${
-                  isRTL ? "text-right" : "text-left"
-                }`}
-              >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="relative overflow-hidden shrink-0 group w-10 h-10 sm:w-12 sm:h-12 xl:w-14 xl:h-14">
+                  <img
+                    src="./logo.svg"
+                    alt="Logo"
+                    className="w-full h-full object-contain relative z-10 transition-all duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-white">
+                  {t("companyName")}
+                </h3>
+              </div>
+              <p className="text-soft-lavender/80 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6">
                 {t("description")}
               </p>
-              <div
-                className={`flex items-center gap-2 text-soft-lavender/60 text-sm ${
-                  isRTL ? "text-right" : "text-left"
-                }`}
-              >
+              <div className="flex items-center gap-2 text-soft-lavender/60 text-xs sm:text-sm">
                 <svg
-                  className="w-4 h-4"
+                  className="w-3 h-3 sm:w-4 sm:h-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -93,38 +76,27 @@ const Footer = () => {
               </div>
             </motion.div>
 
-            {/* Quick Links */}
+            {/* Quick Links - Wraps with other small sections on medium screens */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
+              className="sm:col-span-2 lg:col-span-2 xl:col-span-2"
             >
-              <h4
-                className={`text-lg font-bold text-white mb-6 ${
-                  isRTL ? "text-right" : "text-left"
-                }`}
-              >
+              <h4 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6">
                 {t("quickLinks")}
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
                     <motion.a
                       href={link.href}
-                      className={`text-soft-lavender/70 hover:text-electric-violet transition-colors duration-300 text-sm flex items-center gap-2 group ${
-                        isRTL
-                          ? "flex-row-reverse text-right justify-end"
-                          : "text-left"
-                      }`}
-                      whileHover={{ x: isRTL ? 5 : -5 }}
+                      className="text-soft-lavender/70 hover:text-electric-violet transition-colors duration-300 text-xs sm:text-sm flex flex-row-reverse justify-end items-center gap-2 group"
+                      whileHover={{ x: -5 }}
                     >
                       <svg
-                        className={`w-3 h-3 transform transition-all duration-300 opacity-0 group-hover:opacity-100 ${
-                          isRTL
-                            ? "rotate-0 group-hover:translate-x-1"
-                            : "rotate-180 group-hover:-translate-x-1"
-                        }`}
+                        className="w-2 h-2 sm:w-3 sm:h-3 transform transition-all duration-300 opacity-0 group-hover:opacity-100 rtl:rotate-180"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -136,72 +108,59 @@ const Footer = () => {
                           d="M14 5l7 7m0 0l-7 7m7-7H3"
                         />
                       </svg>
-                      <span className={isRTL ? "text-right" : "text-left"}>
-                        {link.name}
-                      </span>
+                      <span>{link.name}</span>
                     </motion.a>
                   </li>
                 ))}
               </ul>
             </motion.div>
 
-            {/* Services */}
+            {/* Services - Wraps with other small sections on medium screens */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
+              className="sm:col-span-2 lg:col-span-2 xl:col-span-2"
             >
-              <h4
-                className={`text-lg font-bold text-white mb-6 ${
-                  isRTL ? "text-right" : "text-left"
-                }`}
-              >
+              <h4 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6">
                 {t("ourServices")}
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {services.map((service, index) => (
                   <li key={index}>
-                    <span
-                      className={`text-soft-lavender/70 text-sm flex items-center gap-2 ${
-                        isRTL
-                          ? "flex-row-reverse text-right justify-end"
-                          : "text-left"
-                      }`}
+                    <a
+                      href="#services"
+                      className="text-soft-lavender/70 text-xs sm:text-sm flex items-center gap-2 hover:text-electric-violet transition-colors"
                     >
                       <div className="w-1.5 h-1.5 bg-electric-violet/50 rounded-full"></div>
-                      <span className={isRTL ? "text-right" : "text-left"}>
-                        {service}
-                      </span>
-                    </span>
+                      <span>{service}</span>
+                    </a>
                   </li>
                 ))}
               </ul>
             </motion.div>
 
-            {/* Contact Info */}
+            {/* Contact Info - Wraps with other small sections on medium screens */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
+              className="sm:col-span-2 lg:col-span-3 xl:col-span-4"
             >
-              <h4
-                className={`text-lg font-bold text-white mb-6 ${
-                  isRTL ? "text-right" : "text-left"
-                }`}
-              >
+              <h4 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6">
                 {t("contactUs")}
               </h4>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <motion.a
                   href="mailto:info@yousefallouji.com"
-                  className={`flex items-center gap-3 text-soft-lavender/70 hover:text-electric-violet transition-colors duration-300 group`}
-                  whileHover={{ x: isRTL ? 5 : -5 }}
+                  className="flex items-center gap-2 sm:gap-3 text-soft-lavender/70 hover:text-electric-violet transition-colors duration-300 group"
+                  whileHover={{ x: -5 }}
                 >
-                  <div className="w-10 h-10 bg-electric-violet/20 rounded-lg flex items-center justify-center group-hover:bg-electric-violet/30 transition-all duration-300">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-electric-violet/20 rounded-lg flex items-center justify-center group-hover:bg-electric-violet/30 transition-all duration-300">
                     <svg
-                      className="w-5 h-5"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -214,20 +173,22 @@ const Footer = () => {
                       />
                     </svg>
                   </div>
-                  <div className={isRTL ? "text-right" : "text-left"}>
-                    <div className="text-sm font-medium">{t("email")}</div>
+                  <div>
+                    <div className="text-xs sm:text-sm font-medium">
+                      {t("email")}
+                    </div>
                     <div className="text-xs">info@yousefallouji.com</div>
                   </div>
                 </motion.a>
 
                 <motion.a
                   href="https://wa.me/963996320963"
-                  className={`flex items-center gap-3 text-soft-lavender/70 hover:text-electric-violet transition-colors duration-300 group`}
-                  whileHover={{ x: isRTL ? 5 : -5 }}
+                  className="flex items-center gap-2 sm:gap-3 text-soft-lavender/70 hover:text-electric-violet transition-colors duration-300 group"
+                  whileHover={{ x: -5 }}
                 >
-                  <div className="w-10 h-10 bg-electric-violet/20 rounded-lg flex items-center justify-center group-hover:bg-electric-violet/30 transition-all duration-300">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-electric-violet/20 rounded-lg flex items-center justify-center group-hover:bg-electric-violet/30 transition-all duration-300">
                     <svg
-                      className="w-5 h-5"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -240,8 +201,10 @@ const Footer = () => {
                       />
                     </svg>
                   </div>
-                  <div className={isRTL ? "text-right" : "text-left"}>
-                    <div className="text-sm font-medium">{t("whatsapp")}</div>
+                  <div>
+                    <div className="text-xs sm:text-sm font-medium">
+                      {t("whatsapp")}
+                    </div>
                     <div className="text-xs">0996320963</div>
                   </div>
                 </motion.a>
@@ -252,20 +215,14 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-white/10">
-          <div className="container mx-auto px-4 py-6">
-            <div
-              className={`flex flex-col md:flex-row justify-between items-center gap-4 ${
-                isRTL ? "md:flex-row-reverse" : ""
-              }`}
-            >
+          <div className="container mx-auto px-4 py-4 sm:py-6">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4">
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className={`text-soft-lavender/60 text-sm ${
-                  isRTL ? "text-right" : "text-left"
-                }`}
+                className="text-soft-lavender/60 text-xs sm:text-sm text-center"
               >
                 {t("copyright", { year: currentYear })}
               </motion.div>
@@ -275,23 +232,13 @@ const Footer = () => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className={`flex items-center gap-6 ${
-                  isRTL ? "flex-row-reverse" : ""
-                }`}
+                className="flex items-center gap-4 sm:gap-6"
               >
-                <span
-                  className={`text-soft-lavender/60 text-sm ${
-                    isRTL ? "text-right" : "text-left"
-                  }`}
-                >
+                <span className="text-soft-lavender/60 text-xs sm:text-sm">
                   {t("syrianMade")}
                 </span>
                 <div className="w-1 h-1 bg-electric-violet/50 rounded-full"></div>
-                <span
-                  className={`text-soft-lavender/60 text-sm ${
-                    isRTL ? "text-right" : "text-left"
-                  }`}
-                >
+                <span className="text-soft-lavender/60 text-xs sm:text-sm">
                   {t("builtWithLove")}
                 </span>
               </motion.div>

@@ -20,18 +20,6 @@ const Contact = () => {
 
   const t = useTranslations("Contact");
 
-  const getCurrentLocale = () => {
-    if (typeof document === "undefined") return "ar";
-    const value = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("locale="))
-      ?.split("=")[1];
-    return value || "ar";
-  };
-
-  const currentLocale = getCurrentLocale();
-  const isRTL = currentLocale === "ar";
-
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -140,7 +128,7 @@ const Contact = () => {
     {
       icon: (
         <svg
-          className="w-6 h-6"
+          className="w-5 h-5 sm:w-6 sm:h-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -160,7 +148,7 @@ const Contact = () => {
     {
       icon: (
         <svg
-          className="w-6 h-6"
+          className="w-5 h-5 sm:w-6 sm:h-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -180,7 +168,7 @@ const Contact = () => {
     {
       icon: (
         <svg
-          className="w-6 h-6"
+          className="w-5 h-5 sm:w-6 sm:h-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -206,11 +194,7 @@ const Contact = () => {
   ];
 
   return (
-    <section
-      id="contact"
-      className="py-20 relative overflow-hidden"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
+    <section id="contact" className="py-16 sm:py-20 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute top-2/6 -right-20 w-80 h-80 bg-electric-violet/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-2/6 -left-20 w-96 h-96 bg-royal-purple/10 rounded-full blur-3xl"></div>
@@ -228,16 +212,16 @@ const Contact = () => {
               exit={{ opacity: 0, y: -50, scale: 0.8 }}
               className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4"
             >
-              <div className="bg-linear-to-r from-green-500 to-emerald-600 text-white p-4 rounded-2xl shadow-2xl shadow-green-500/25 backdrop-blur-sm border border-green-400/30">
+              <div className="bg-linear-to-r from-green-500 to-emerald-600 text-white p-4 rounded-xl sm:rounded-2xl shadow-2xl shadow-green-500/25 backdrop-blur-sm border border-green-400/30">
                 <div className="flex items-center gap-3">
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.2, type: "spring" }}
-                    className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"
+                    className="w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-full flex items-center justify-center"
                   >
                     <svg
-                      className="w-5 h-5"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -251,10 +235,12 @@ const Contact = () => {
                     </svg>
                   </motion.div>
                   <div className="flex-1">
-                    <h4 className="font-bold">
+                    <h4 className="font-bold text-sm sm:text-base">
                       {t("successTitle") || "Success!"}
                     </h4>
-                    <p className="text-sm opacity-90">{t("successMessage")}</p>
+                    <p className="text-xs sm:text-sm opacity-90">
+                      {t("successMessage")}
+                    </p>
                   </div>
                   <button
                     onClick={() => setShowSuccess(false)}
@@ -286,43 +272,41 @@ const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
             <span className="bg-linear-to-r from-electric-violet to-royal-purple bg-clip-text text-transparent">
               {t("title")}
             </span>
           </h2>
-          <p className="text-lg text-soft-lavender/80 max-w-2xl mx-auto mb-8">
+          <p className="text-base sm:text-lg text-soft-lavender/80 max-w-2xl mx-auto mb-6 sm:mb-8">
             {t("description")}
           </p>
-          <div className="w-24 h-1 bg-linear-to-r from-electric-violet to-royal-purple mx-auto rounded-full"></div>
+          <div className="w-20 sm:w-24 h-1 bg-linear-to-r from-electric-violet to-royal-purple mx-auto rounded-full"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-electric-violet/30 transition-all duration-300"
+            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-6 sm:p-8 hover:border-electric-violet/30 transition-all duration-300"
           >
-            <h3 className="text-2xl font-bold text-white mb-6">
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">
               {t("sendMessage")}
             </h3>
 
             <form
               onSubmit={handleSubmit}
-              className="space-y-6 transition-all duration-300"
+              className="space-y-4 sm:space-y-6 transition-all duration-300"
             >
               {/* Name Field */}
               <div>
                 <label
                   htmlFor="name"
-                  className={`block text-sm font-medium text-soft-lavender/80 mb-2 ${
-                    isRTL ? "text-right" : "text-left"
-                  }`}
+                  className="block text-sm font-medium text-soft-lavender/80 mb-2"
                 >
                   {t("fullName")}
                 </label>
@@ -332,15 +316,12 @@ const Contact = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-white placeholder-soft-lavender/50 focus:border-electric-violet focus:ring-1 focus:ring-electric-violet transition-all duration-300 outline-none ${
-                    isRTL ? "text-right" : "text-left"
-                  } ${
+                  className={`w-full bg-white/5 border rounded-lg sm:rounded-xl px-4 py-3 text-white placeholder-soft-lavender/50 focus:border-electric-violet focus:ring-1 focus:ring-electric-violet transition-all duration-300 outline-none text-sm sm:text-base ${
                     errors.name
                       ? "border-red-400/60 bg-red-500/10"
                       : "border-white/10"
                   }`}
                   placeholder={t("fullNamePlaceholder")}
-                  dir={isRTL ? "rtl" : "ltr"}
                 />
                 <AnimatePresence>
                   {errors.name && (
@@ -348,10 +329,10 @@ const Contact = () => {
                       initial={{ opacity: 0, y: -10, height: 0 }}
                       animate={{ opacity: 1, y: 0, height: "auto" }}
                       exit={{ opacity: 0, y: -10, height: 0 }}
-                      className="flex items-center gap-2 mt-2 text-red-400 text-sm"
+                      className="flex items-center gap-2 mt-2 text-red-400 text-xs sm:text-sm"
                     >
                       <svg
-                        className="w-4 h-4 shrink-0"
+                        className="w-3 h-3 sm:w-4 sm:h-4 shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -373,9 +354,7 @@ const Contact = () => {
               <div>
                 <label
                   htmlFor="email"
-                  className={`block text-sm font-medium text-soft-lavender/80 mb-2 ${
-                    isRTL ? "text-right" : "text-left"
-                  }`}
+                  className="block text-sm font-medium text-soft-lavender/80 mb-2"
                 >
                   {t("email")}
                 </label>
@@ -385,15 +364,12 @@ const Contact = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-white placeholder-soft-lavender/50 focus:border-electric-violet focus:ring-1 focus:ring-electric-violet transition-all duration-300 outline-none ${
-                    isRTL ? "text-right" : "text-left"
-                  } ${
+                  className={`w-full bg-white/5 border rounded-lg sm:rounded-xl px-4 py-3 text-white placeholder-soft-lavender/50 focus:border-electric-violet focus:ring-1 focus:ring-electric-violet transition-all duration-300 outline-none text-sm sm:text-base ${
                     errors.email
                       ? "border-red-400/60 bg-red-500/10"
                       : "border-white/10"
                   }`}
                   placeholder={t("emailPlaceholder")}
-                  dir="ltr"
                 />
                 <AnimatePresence>
                   {errors.email && (
@@ -401,10 +377,10 @@ const Contact = () => {
                       initial={{ opacity: 0, y: -10, height: 0 }}
                       animate={{ opacity: 1, y: 0, height: "auto" }}
                       exit={{ opacity: 0, y: -10, height: 0 }}
-                      className="flex items-center gap-2 mt-2 text-red-400 text-sm"
+                      className="flex items-center gap-2 mt-2 text-red-400 text-xs sm:text-sm"
                     >
                       <svg
-                        className="w-4 h-4 shrink-0"
+                        className="w-3 h-3 sm:w-4 sm:h-4 shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -426,9 +402,7 @@ const Contact = () => {
               <div>
                 <label
                   htmlFor="message"
-                  className={`block text-sm font-medium text-soft-lavender/80 mb-2 ${
-                    isRTL ? "text-right" : "text-left"
-                  }`}
+                  className="block text-sm font-medium text-soft-lavender/80 mb-2"
                 >
                   {t("message")}
                 </label>
@@ -437,16 +411,13 @@ const Contact = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows={5}
-                  className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-white placeholder-soft-lavender/50 focus:border-electric-violet focus:ring-1 focus:ring-electric-violet transition-all duration-300 outline-none resize-none ${
-                    isRTL ? "text-right" : "text-left"
-                  } ${
+                  rows={4}
+                  className={`w-full bg-white/5 border rounded-lg sm:rounded-xl px-4 py-3 text-white placeholder-soft-lavender/50 focus:border-electric-violet focus:ring-1 focus:ring-electric-violet transition-all duration-300 outline-none resize-none text-sm sm:text-base ${
                     errors.message
                       ? "border-red-400/60 bg-red-500/10"
                       : "border-white/10"
                   }`}
                   placeholder={t("messagePlaceholder")}
-                  dir={isRTL ? "rtl" : "ltr"}
                 />
                 <AnimatePresence>
                   {errors.message && (
@@ -454,10 +425,10 @@ const Contact = () => {
                       initial={{ opacity: 0, y: -10, height: 0 }}
                       animate={{ opacity: 1, y: 0, height: "auto" }}
                       exit={{ opacity: 0, y: -10, height: 0 }}
-                      className="flex items-center gap-2 mt-2 text-red-400 text-sm"
+                      className="flex items-center gap-2 mt-2 text-red-400 text-xs sm:text-sm"
                     >
                       <svg
-                        className="w-4 h-4 shrink-0"
+                        className="w-3 h-3 sm:w-4 sm:h-4 shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -478,7 +449,7 @@ const Contact = () => {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-linear-to-r from-electric-violet to-royal-purple hover:from-royal-purple hover:to-electric-violet text-white py-4 rounded-xl transition-all duration-300 font-medium shadow-lg hover:shadow-electric-violet/30 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-linear-to-r from-electric-violet to-royal-purple hover:from-royal-purple hover:to-electric-violet text-white py-3 sm:py-4 rounded-lg sm:rounded-xl transition-all duration-300 font-medium shadow-lg hover:shadow-electric-violet/30 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                 whileHover={!isSubmitting ? { scale: 1.02 } : {}}
                 whileTap={!isSubmitting ? { scale: 0.98 } : {}}
               >
@@ -491,7 +462,7 @@ const Contact = () => {
                         repeat: Infinity,
                         ease: "linear",
                       }}
-                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                      className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full"
                     />
                     <span>{t("sending") || "Sending..."}</span>
                   </>
@@ -499,11 +470,7 @@ const Contact = () => {
                   <>
                     <span>{t("sendButton")}</span>
                     <svg
-                      className={`w-5 h-5 transform transition-transform duration-300 ${
-                        isRTL
-                          ? "rotate-180 group-hover:-translate-x-1"
-                          : "group-hover:translate-x-1"
-                      }`}
+                      className="w-4 h-4 sm:w-5 sm:h-5 transform transition-transform duration-300 group-hover:translate-x-1"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -519,11 +486,7 @@ const Contact = () => {
                 )}
               </motion.button>
 
-              <p
-                className={`text-xs text-soft-lavender/60 text-center mt-4 ${
-                  isRTL ? "text-right" : "text-left"
-                }`}
-              >
+              <p className="text-xs text-soft-lavender/60 text-center mt-3 sm:mt-4">
                 {t("sendingNote")}
               </p>
             </form>
@@ -531,18 +494,18 @@ const Contact = () => {
 
           {/* Contact Information */}
           <motion.div
-            initial={{ opacity: 0, x: isRTL ? -50 : 50 }}
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, delay: 0.2 }}
             className="space-y-6"
           >
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-electric-violet/30 transition-all duration-300">
-              <h3 className="text-2xl font-bold text-white mb-6">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-6 sm:p-8 hover:border-electric-violet/30 transition-all duration-300">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">
                 {t("contactInfo")}
               </h3>
 
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {contactInfo.map((item, index) => (
                   <motion.a
                     key={index}
@@ -551,21 +514,16 @@ const Contact = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className={`flex items-start gap-4 group cursor-pointer p-4 rounded-xl hover:bg-white/5 transition-all duration-300 ${
-                      isRTL ? "flex-row-reverse" : ""
-                    }`}
-                    whileHover={{ x: isRTL ? 5 : -5 }}
+                    className="flex items-start gap-3 sm:gap-4 group cursor-pointer p-3 sm:p-4 rounded-lg sm:rounded-xl hover:bg-white/5 transition-all duration-300"
                   >
-                    <div className="w-12 h-12 bg-electric-violet/20 rounded-xl flex items-center justify-center text-electric-violet group-hover:bg-electric-violet/30 group-hover:scale-110 transition-all duration-300">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-electric-violet/20 rounded-lg sm:rounded-xl flex items-center justify-center text-electric-violet group-hover:bg-electric-violet/30 group-hover:scale-110 transition-all duration-300">
                       {item.icon}
                     </div>
-                    <div
-                      className={`flex-1 ${isRTL ? "text-right" : "text-left"}`}
-                    >
-                      <h4 className="font-semibold text-white mb-1">
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-white mb-1 text-sm sm:text-base">
                         {item.title}
                       </h4>
-                      <p className="text-soft-lavender/80 text-sm">
+                      <p className="text-soft-lavender/80 text-xs sm:text-sm">
                         {item.value}
                       </p>
                     </div>
@@ -580,22 +538,22 @@ const Contact = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="bg-linear-to-br from-electric-violet/20 to-royal-purple/20 backdrop-blur-sm border border-electric-violet/30 rounded-2xl p-6 text-center"
+              className="bg-linear-to-br from-electric-violet/20 to-royal-purple/20 backdrop-blur-sm border border-electric-violet/30 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center"
             >
-              <h4 className="text-lg font-bold text-white mb-4">
+              <h4 className="text-base sm:text-lg font-bold text-white mb-3 sm:mb-4">
                 {t("directContact")}
               </h4>
-              <p className="text-soft-lavender/80 text-sm mb-4">
+              <p className="text-soft-lavender/80 text-xs sm:text-sm mb-3 sm:mb-4">
                 {t("directContactDesc")}
               </p>
               <motion.a
                 href="https://wa.me/963996320963"
-                className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-all duration-300 font-medium shadow-lg"
+                className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl transition-all duration-300 font-medium shadow-lg text-sm sm:text-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <svg
-                  className="w-5 h-5"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -607,25 +565,6 @@ const Contact = () => {
           </motion.div>
         </div>
       </div>
-
-      <style jsx>{`
-        .shake-animation {
-          animation: shake 0.5s ease-in-out;
-        }
-
-        @keyframes shake {
-          0%,
-          100% {
-            transform: translateX(0);
-          }
-          25% {
-            transform: translateX(-5px);
-          }
-          75% {
-            transform: translateX(5px);
-          }
-        }
-      `}</style>
     </section>
   );
 };
