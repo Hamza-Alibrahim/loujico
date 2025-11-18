@@ -20,6 +20,18 @@ const Contact = () => {
 
   const t = useTranslations("Contact");
 
+  const getCurrentLocale = () => {
+    if (typeof document === "undefined") return "en";
+    const value = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("locale="))
+      ?.split("=")[1];
+    return value || "en";
+  };
+
+  const currentLocale = getCurrentLocale();
+  const isRtl = currentLocale === "ar";
+
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -288,7 +300,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
@@ -494,7 +506,7 @@ const Contact = () => {
 
           {/* Contact Information */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: isRtl ? -50 : 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, delay: 0.2 }}
